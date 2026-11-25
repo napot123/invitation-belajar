@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Edu Fair & Career Day 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="container">
+        <article class="card admin-card">
+            <div class="top-row">
+                <span class="tag-event">Panel Panitia • Edu Fair 2026</span>
+                <a href="index.html" class="link-btn">Lihat Undangan</a>
+            </div>
+
+            <header class="hero">
+                <h1>Generator Undangan & Rekap RSVP</h1>
+                <p class="pengantar">Unggah file CSV tamu untuk membuat tautan undangan WhatsApp otomatis dan memantau
+                    konfirmasi RSVP.</p>
+            </header>
+
+            <section class="detail-acara">
+                <h3>1. Pengaturan & File CSV Tamu</h3>
+                <div class="form-rsvp">
+                    <div class="form-group">
+                        <label for="csv-file-input">File CSV Tamu (kolom: id, nama_tamu, instansi, kategori, no_whatsapp)</label>
+                        <input type="file" id="csv-file-input" accept=".csv">
+                    </div>
+                    <div class="form-group">
+                        <label for="base-url-input">URL Dasar Undangan</label>
+                        <input type="text" id="base-url-input" value="index.html">
+                    </div>
+                </div>
+            </section>
+
+            <section class="detail-acara">
+                <h3>2. Daftar Tamu (<span id="guest-count">0</span>)</h3>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama Tamu</th>
+                                <th>Instansi</th>
+                                <th>Kategori</th>
+                                <th>No. WhatsApp</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="guest-table-body">
+                            <tr>
+                                <td colspan="6" class="empty-row">Silakan pilih file CSV tamu terlebih dahulu.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="detail-acara">
+                <div class="section-bar">
+                    <h3>3. Rekap RSVP Lokal (<span id="rsvp-count">0</span>)</h3>
+                    <button type="button" id="btn-refresh-rsvp" class="btn-mini secondary">Muat Ulang</button>
+                </div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Instansi</th>
+                                <th>Kategori</th>
+                                <th>Status</th>
+                                <th>Pesan</th>
+                                <th>Waktu</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rsvp-table-body">
+                            <tr>
+                                <td colspan="6" class="empty-row">Memuat data RSVP...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://xezsvnovpxqeecwpknwf.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_JranbNTHvR5FIFeasH2KGw_fkbn2Hqb';
+        const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const rsvpBody = document.getElementById('rsvp-table-body');
+            const rsvpCount = document.getElementById('rsvp-count');
+            const btnRefresh = document.getElementById('btn-refresh-rsvp');
+
+            async function loadSupabaseRsvp() {
+                if (!supabase) return;
+                rsvpBody.innerHTML = '<tr><td colspan="6" class="empty-row">Memuat data dari database Supabase...</td></tr>';
+
+                const { data, error } = await supabase
+                    .from('rsvp')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) {
+                    rsvpBody.innerHTML = `<tr><td colspan="6" class="empty-row" style="color: #ef4444;">Gagal memuat: ${error.message}</td></tr>`;
+                    return;
+                }
+
+                if (!data || data.length === 0) {
+                    rsvpBody.innerHTML = '<tr><td colspan="6" class="empty-row">Belum ada data RSVP masuk di database.</td></tr>';
+                    rsvpCount.textContent = '0';
+                    return;
+                }
+
+                rsvpCount.textContent = data.length;
+                rsvpBody.innerHTML = data.map(item => `
+                    <tr>
+                        <td><strong>${item.nama || '-'}</strong></td>
+                        <td>${item.instansi || '-'}</td>
+                        <td>${item.kategori || 'Tamu Undangan'}</td>
+                        <td><span style="color:#15803d; font-weight:600;">${item.status || '-'}</span></td>
+                        <td>${item.pesan || '-'}</td>
+                        <td>${item.created_at ? new Date(item.created_at).toLocaleString('id-ID') : '-'}</td>
+                    </tr>
+                `).join('');
+            }
+
+            loadSupabaseRsvp();
+            if (btnRefresh) {
+                btnRefresh.addEventListener('click', loadSupabaseRsvp);
+            }
+        });
+    </script>
+</body>
+
+</html>

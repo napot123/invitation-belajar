@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Edu Fair & Career Day 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="container">
+        <article class="card">
+            <div class="top-row">
+                <span class="tag-event">Edu Fair & Career Day 2026</span>
+            </div>
+
+            <!-- Background Music Player (The Script ft. Will.I.Am - Hall of Fame) -->
+            <audio id="bg-music" src="Bgm/The%20Script%20ft.%20Will.I.Am%20-%20Hall%20Of%20Fame%20(Official%20Instrumental).mp3" loop preload="auto"></audio>
+
+            <header class="hero">
+                <h1>Edu Fair & Career Day 2026</h1>
+                <p class="tema">Tema: "Navigating Future Tech & Bridging Industry Innovation"</p>
+                <p class="pengantar">Undangan resmi untuk perwakilan universitas, perusahaan mitra, dan alumni.</p>
+            </header>
+
+            <section class="penerima">
+                <span class="kicker">Kepada Yth.</span>
+                <h2 id="recipient-name">Bapak/Ibu Tamu Undangan</h2>
+                <p id="recipient-instansi">Mitra Edu Fair & Career Day</p>
+                <span id="recipient-kategori" class="badge-kategori">Tamu Undangan</span>
+            </section>
+
+            <section class="detail-acara">
+                <h3>Detail Acara</h3>
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="info-label">Hari & Tanggal</span>
+                        <span class="info-value">Rabu, 25 November 2026</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Waktu</span>
+                        <span class="info-value">08.30 - 15.00 WIB</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Lokasi</span>
+                        <span class="info-value">SMKN 6 Kota Tangerang Selatan, Jl. Magnolia VI No. 6, Jelupang, Serpong Utara</span>
+                    </div>
+                </div>
+                <div class="peta-wrap">
+                    <iframe
+                        src="https://maps.google.com/maps?q=SMKN%206%20Kota%20Tangerang%20Selatan%20Jl.%20Magnolia%20VI%20No.6%20Jelupang&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Peta Lokasi SMKN 6 Tangsel"></iframe>
+                </div>
+                <div style="margin-top: 10px;">
+                    <a href="https://www.google.com/maps/search/?api=1&query=-6.2631,106.6661" target="_blank"
+                        rel="noopener noreferrer" class="btn-mini secondary">Buka di Google Maps ↗</a>
+                </div>
+            </section>
+
+            <section class="galeri">
+                <h3>Galeri Kegiatan</h3>
+                <div class="grid-foto">
+                    <figure class="foto-card">
+                        <img src="foto1.jpg" alt="Pameran Karya" onerror="this.style.display='none'; this.parentElement.style.padding='28px 12px';">
+                        <figcaption>Pameran Karya</figcaption>
+                    </figure>
+                    <figure class="foto-card">
+                        <img src="foto2.jpg" alt="Sesi Berbagi" onerror="this.style.display='none'; this.parentElement.style.padding='28px 12px';">
+                        <figcaption>Sesi Berbagi</figcaption>
+                    </figure>
+                    <figure class="foto-card">
+                        <img src="foto3.jpg" alt="Bursa Karier" onerror="this.style.display='none'; this.parentElement.style.padding='28px 12px';">
+                        <figcaption>Bursa Karier</figcaption>
+                    </figure>
+                    <figure class="foto-card">
+                        <img src="foto4.jpg" alt="Kunjungan Mitra" onerror="this.style.display='none'; this.parentElement.style.padding='28px 12px';">
+                        <figcaption>Kunjungan Mitra</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <section class="rsvp-section">
+                <div class="rsvp-head">
+                    <h2>Konfirmasi Kehadiran (RSVP)</h2>
+                    <p>Mohon kesediaannya untuk mengonfirmasi kehadiran Anda pada acara kami.</p>
+                </div>
+
+                <form id="rsvp-form" class="form-rsvp">
+                    <div class="form-group">
+                        <label for="rsvp-nama">Nama Lengkap & Gelar</label>
+                        <input type="text" id="rsvp-nama" placeholder="Masukkan nama Anda" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvp-instansi">Asal Instansi / Angkatan</label>
+                        <input type="text" id="rsvp-instansi" placeholder="Masukkan nama instansi" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvp-status">Status Kehadiran</label>
+                        <select id="rsvp-status">
+                            <option value="Ya, Saya Akan Hadir">Ya, Saya Akan Hadir</option>
+                            <option value="Hadir (Diwakilkan)">Hadir (Diwakilkan)</option>
+                            <option value="Maaf, Berhalangan Hadir">Maaf, Berhalangan Hadir</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvp-pesan">Pesan / Ucapan (Opsional)</label>
+                        <textarea id="rsvp-pesan" rows="3" placeholder="Tuliskan pesan singkat..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Kirim Konfirmasi</button>
+                </form>
+
+                <div id="rsvp-success" class="rsvp-alert hidden">
+                    <p id="rsvp-summary"></p>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <!-- Tombol Mengambang Kontrol Musik -->
+    <button type="button" id="music-toggle" class="floating-music paused" aria-label="Kontrol Musik">Putar Musik</button>
+
+    <!-- Supabase JS Client & Script -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
